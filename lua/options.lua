@@ -1,30 +1,18 @@
--- See `:help vim.opt`
--- NOTE: You can change these options as you wish!
---  For more options, you can see `:help option-list`
 vim.o.conceallevel = 2
--- Make line numbers default
+vim.o.pumheight = 10
 vim.opt.number = true
--- You can also add relative line numbers, to help with jumping.
 vim.opt.relativenumber = true
 
--- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = "a"
+vim.opt.showmode = false -- Don't show mode, it's in the status line
 
--- Don't show the mode, since it's already in the status line
-vim.opt.showmode = false
-
--- Sync clipboard between OS and Neovim. Remove this option if you want your OS clipboard to remain independent.
-vim.opt.clipboard = "unnamedplus"
+vim.opt.clipboard = "unnamedplus" -- Sync clipboard between OS and Neovim
 
 vim.opt.wrap = true
 vim.opt.linebreak = true
-----  Set codeium_enabled to true
-vim.g.codeium_enabled = true
 
--- Set codeium_filetypes_disabled_by_default to true
+vim.g.codeium_enabled = true -- enable codeium
 vim.g.codeium_filetypes_disabled_by_default = true
-
--- Define the filetypes and set them to true
 vim.g.codeium_filetypes = {
 	lua = true,
 	bash = true,
@@ -32,14 +20,14 @@ vim.g.codeium_filetypes = {
 	md = true,
 	markdown = true,
 }
+
 vim.cmd("set expandtab")
 vim.cmd("set tabstop=2")
 vim.cmd("set softtabstop=2")
 vim.cmd("set shiftwidth=2")
--- Enable break indent
+
 vim.opt.breakindent = true
 
--- Save undo history
 vim.opt.undodir = "/Users/gchingon/.config/nvim/undodir"
 vim.opt.undofile = true
 
@@ -47,38 +35,28 @@ vim.opt.undofile = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
--- Keep signcolumn on by default
 vim.opt.signcolumn = "yes"
-
--- Decrease update time
 vim.opt.updatetime = 250
 
--- Decrease mapped sequence wait time Displays which-key popup sooner
-vim.opt.timeoutlen = 300
+vim.opt.timeoutlen = 100
 
--- Configure how new splits should be opened
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 
--- Sets how neovim will display certain whitespace characters in the editor. See `:help 'list'`  and `:help 'listchars'`
 vim.opt.list = true
 vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = "split"
 
--- Show which line your cursor is on
-vim.opt.cursorline = true
+vim.opt.cursorline = false
 
--- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 20
 
 --  See `:help vim.keymap.set()` Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
--- [[ Basic Autocommands ]]
---  See `:help lua-guide-autocommands` Highlight when yanking (copying) text  Try it with `yap` in normal mode See `:help vim.highlight.on_yank()`
 vim.api.nvim_create_autocmd("TextYankPost", {
 	desc = "Highlight when yanking (copying) text",
 	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),

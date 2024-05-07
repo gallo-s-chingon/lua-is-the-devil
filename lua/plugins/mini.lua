@@ -5,40 +5,28 @@ add('echasnovski/mini.extra')
 require('mini.extra').setup()
 
 -- MINI.EXTRA Mappings
--- keys.map('n', '<Leader>fk', MiniExtra.pickers.keymaps, 'Find keymaps')
--- keys.map('n', '<Leader>fs', MiniExtra.pickers.spellsuggest, 'Find spelling')
+vim.keymap.set('n', '<Leader>k', '<cmd>Pick diagnostic<cr>', { noremap = true, desc = 'Find keymaps' })
+vim.keymap.set('n', '<Leader>s', '<cmd>Pick spellsuggest<cr>', { noremap = true, desc = 'Find spelling' })
+vim.keymap.set('n', '<Leader>y', '<cmd>Pick history<cr>', { noremap = true, desc = 'History search' })
 
--- keys.map('n', '<C-f>', function()
--- 	MiniExtra.pickers.history({ scope = ':' })
--- end, 'Filter command history')
-
--- keys.map('n', '<C-s>', function()
--- 	MiniExtra.pickers.buf_lines({ scope = 'current' })
--- end, 'Find lines')
-
--- mini.pick
 add('echasnovski/mini.pick')
 require('mini.pick').setup({
 	source = {
 		show = require('mini.pick').default_show,
 	},
 
-	mappings = {
-		refine = '<C-J>',
-		choose_marked = '<C-Q>',
-	},
 })
 
 -- Use mini.pick as the default selector in vim
 vim.ui.select = MiniPick.ui_select
 
 -- MINI.PICK Mappings
--- keys.map('n', '<Leader><Space>', MiniPick.builtin.files, 'Find files')
--- keys.map('n', '<Leader>z', MiniPick.builtin.resume, 'Resume last picker')
--- keys.map('n', '<C-b>', MiniPick.builtin.buffers, 'Find buffers')
--- keys.map('n', '<Leader>fh', MiniPick.builtin.help, 'Find help')
--- keys.map('n', '<Leader>fg', MiniPick.builtin.grep_live, 'Find content')
--- keys.map('n', '<Leader>*', '<cmd>Pick grep pattern='<cword>'<cr>', 'Grep string under cursor')
+vim.keymap.set('n', '<leader>/', '<cmd>Pick files<cr>', { noremap = true, desc = 'mini FILE search' })
+vim.keymap.set('n', '<Leader>z', '<cmd>Pick resume<cr>', { noremap = true, desc = 'Resume last picker'})
+vim.keymap.set('n', '<Leader>b', '<cmd>Pick buffers<cr>', { noremap = true, desc = 'Find buffers'})
+vim.keymap.set('n', '<Leader>h', '<cmd>Pick help<cr>', { noremap = true, desc = 'Find help'})
+vim.keymap.set('n', '<Leader>g', '<cmd>Pick grep_live<cr>', { noremap = true, desc = 'Find content'})
+vim.keymap.set('n', '<Leader>*', '<cmd>Pick grep pattern="<cword>"<cr>', { noremap = true, desc = 'Grep string under cursor'})
 
 -- mini.pairs
 add('echasnovski/mini.pairs')
@@ -46,18 +34,11 @@ require('mini.pairs').setup({
 	modes = { insert = true, command = true, terminal = true },
 })
 
--- mini.files
-add('echasnovski/mini.files')
-require('mini.files').setup({
-	mappings = {
-		go_in_plus = '<CR>',
-	},
+require('mini.basics').setup({
+  options = {
+    extra_ui = true,
+  },
 })
-
--- MINI.FILES Mappings
--- keys.map('n', '-', function()
--- 	MiniFiles.open(vim.fn.expand('%'))
--- end, 'Open file explorer')
 
 -- mini.notify
 add('echasnovski/mini.notify')
@@ -81,14 +62,14 @@ vim.notify = MiniNotify.make_notify()
 
 -- Autocommands
 -- local group = event.augroup('MacroNotification')
--- 
+--
 -- event.autocmd('RecordingEnter', {
 -- 	group = group,
 -- 	callback = function()
 -- 		MiniNotify.add('(macro) Recording @' .. vim.fn.reg_recording())
 -- 	end,
 -- })
--- 
+--
 -- event.autocmd('RecordingLeave', { group = group, callback = MiniNotify.clear })
 
 -- mini.comment
@@ -190,10 +171,10 @@ local function session(scope)
 end
 
 -- MINI.SESSION Mappings
--- keys.map('n', '<Leader>sl', session('local'), 'Write a local session')
--- keys.map('n', '<Leader>sw', session('write'), 'Write a session')
--- keys.map('n', '<Leader>sr', session('read'), 'Read a session')
--- keys.map('n', '<Leader>sd', session('delete'), 'Delete a session')
+-- vim.keymap.set('n', '<Leader>sl', session('local'), 'Write a local session')
+-- vim.keymap.set('n', '<Leader>sw', session('write'), 'Write a session')
+-- vim.keymap.set('n', '<Leader>sr', session('read'), 'Read a session')
+-- vim.keymap.set('n', '<Leader>sd', session('delete'), 'Delete a session')
 
 -- mini.visits
 add('echasnovski/mini.visits')
@@ -216,13 +197,13 @@ local function label(action)
 end
 
 -- MINI.VISITS Mappings
--- keys.map('n', '<Leader>la', label('add'), 'Add to ' .. LABEL)
--- keys.map('n', '<Leader>lr', label('remove'), 'Remove from ' .. LABEL)
+-- vim.keymap.set('n', '<Leader>la', label('add'), 'Add to ' .. LABEL)
+-- vim.keymap.set('n', '<Leader>lr', label('remove'), 'Remove from ' .. LABEL)
 
--- keys.map('n', '<Leader>v', function()
+-- vim.keymap.set('n', '<Leader>v', function()
 -- 	MiniVisits.select_path(nil, { filter = LABEL })
 -- end, 'Find labels (current)')
--- keys.map('n', '<Leader>V', function()
+-- vim.keymap.set('n', '<Leader>V', function()
 -- 	MiniVisits.select_path('', { filter = LABEL })
 -- end, 'Find labels (all)')
 
@@ -241,6 +222,7 @@ hipatterns.setup({
 		todo = words({ 'TODO', 'todo' }, 'MiniHipatternsTodo'),
 		note = words({ 'NOTE', 'note' }, 'MiniHipatternsNote'),
 		fixme = words({ 'FIXME', 'fixme' }, 'MiniHipatternsFixme'),
+    hack = words({ 'HACK', 'hack' }, 'MiniHipatternsHack'),
 	},
 })
 
@@ -286,9 +268,6 @@ miniclue.setup({
     { mode = 'n', keys = '<Leader>' },
     { mode = 'x', keys = '<Leader>' },
 
-    -- Built-in completion
-    { mode = 'i', keys = '<C-x>' },
-
     -- `g` key
     { mode = 'n', keys = 'g' },
     { mode = 'x', keys = 'g' },
@@ -300,8 +279,8 @@ miniclue.setup({
     { mode = 'x', keys = '`' },
 
     -- Registers
-    { mode = 'n', keys = '"' },
-    { mode = 'x', keys = '"' },
+    { mode = 'n', keys = "'" },
+    { mode = 'x', keys = "'" },
     { mode = 'i', keys = '<C-r>' },
     { mode = 'c', keys = '<C-r>' },
 
