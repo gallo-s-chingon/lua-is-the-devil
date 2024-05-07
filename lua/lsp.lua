@@ -65,21 +65,21 @@ local function diagnostic(scope)
 	end
 end
 
-event.autocmd("LspAttach", {
-	group = event.augroup("LspConfig"),
-	callback = function(args)
-		local buffer = args.buf
+-- event.autocmd("LspAttach", {
+-- 	group = event.augroup("LspConfig"),
+-- 	callback = function(args)
+-- 		local buffer = args.buf
 
-		keys.maplocal("n", "<Leader>gd", lsp("definition"), "Go to definitions", buffer)
-		keys.maplocal("n", "<Leader>gr", lsp("references"), "Go to references", buffer)
-		keys.maplocal("n", "<Leader>gt", lsp("type_definition"), "Go to type definitions", buffer)
-
-		keys.maplocal("n", "<Leader>w", diagnostic("all"), "Find diagnostic (all)", buffer)
-		keys.maplocal("n", "<Leader>d", diagnostic("current"), "Find diagnostic (current)", buffer)
-
-		keys.maplocal("n", "<Leader>lr", vim.cmd.LspRestart, "Restart Lsp client", buffer)
-	end,
-})
+-- 		keys.maplocal("n", "<Leader>gd", lsp("definition"), "Go to definitions", buffer)
+-- 		keys.maplocal("n", "<Leader>gr", lsp("references"), "Go to references", buffer)
+-- 		keys.maplocal("n", "<Leader>gt", lsp("type_definition"), "Go to type definitions", buffer)
+-- 
+-- 		keys.maplocal("n", "<Leader>w", diagnostic("all"), "Find diagnostic (all)", buffer)
+-- 		keys.maplocal("n", "<Leader>d", diagnostic("current"), "Find diagnostic (current)", buffer)
+-- 
+-- 		keys.maplocal("n", "<Leader>lr", vim.cmd.LspRestart, "Restart Lsp client", buffer)
+-- 	end,
+-- })
 
 -- Mappings
-keys.map("n", "<Leader>li", "<cmd>LspInfo<cr>", "Show LSP info")
+-- keys.map("n", "<Leader>li", "<cmd>LspInfo<cr>", "Show LSP info")

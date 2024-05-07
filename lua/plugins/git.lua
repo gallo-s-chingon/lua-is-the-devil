@@ -4,7 +4,7 @@ local add = MiniDeps.add
 -- Fugitive
 --
 add("tpope/vim-fugitive")
-keys.map("n", "<C-G>", "<cmd>Git<cr>", "Open git status")
+--keys.map("n", "<C-G>", "<cmd>Git<cr>", "Open git status")
 
 --
 -- mini.diff
@@ -18,4 +18,4 @@ require("mini.diff").setup({
 })
 
 -- Mappings
-keys.map("n", "|d", MiniDiff.toggle_overlay, "Toggle diff overlay")
+-- keys.map("n", "|d", MiniDiff.toggle_overlay, "Toggle diff overlay")

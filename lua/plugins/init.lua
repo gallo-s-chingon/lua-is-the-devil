@@ -1,0 +1,8 @@
+require('plugins.mini')
+require('plugins.luasnip')
+require('plugins.treesitter')
+require('plugins.base')
+require('plugins.git')
+require('plugins.img-clip')
+require('plugins.obsidian')
+require('plugins.vim-codium')

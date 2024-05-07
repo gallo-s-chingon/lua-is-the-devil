@@ -5,16 +5,16 @@ add('echasnovski/mini.extra')
 require('mini.extra').setup()
 
 -- MINI.EXTRA Mappings
-keys.map('n', '<Leader>fk', MiniExtra.pickers.keymaps, 'Find keymaps')
-keys.map('n', '<Leader>fs', MiniExtra.pickers.spellsuggest, 'Find spelling')
+-- keys.map('n', '<Leader>fk', MiniExtra.pickers.keymaps, 'Find keymaps')
+-- keys.map('n', '<Leader>fs', MiniExtra.pickers.spellsuggest, 'Find spelling')
 
-keys.map('n', '<C-f>', function()
-	MiniExtra.pickers.history({ scope = ':' })
-end, 'Filter command history')
+-- keys.map('n', '<C-f>', function()
+-- 	MiniExtra.pickers.history({ scope = ':' })
+-- end, 'Filter command history')
 
-keys.map('n', '<C-s>', function()
-	MiniExtra.pickers.buf_lines({ scope = 'current' })
-end, 'Find lines')
+-- keys.map('n', '<C-s>', function()
+-- 	MiniExtra.pickers.buf_lines({ scope = 'current' })
+-- end, 'Find lines')
 
 -- mini.pick
 add('echasnovski/mini.pick')
@@ -33,12 +33,12 @@ require('mini.pick').setup({
 vim.ui.select = MiniPick.ui_select
 
 -- MINI.PICK Mappings
-keys.map('n', '<Leader><Space>', MiniPick.builtin.files, 'Find files')
-keys.map('n', '<Leader>z', MiniPick.builtin.resume, 'Resume last picker')
-keys.map('n', '<C-b>', MiniPick.builtin.buffers, 'Find buffers')
-keys.map('n', '<Leader>fh', MiniPick.builtin.help, 'Find help')
-keys.map('n', '<Leader>fg', MiniPick.builtin.grep_live, 'Find content')
-keys.map('n', '<Leader>*', '<cmd>Pick grep pattern='<cword>'<cr>', 'Grep string under cursor')
+-- keys.map('n', '<Leader><Space>', MiniPick.builtin.files, 'Find files')
+-- keys.map('n', '<Leader>z', MiniPick.builtin.resume, 'Resume last picker')
+-- keys.map('n', '<C-b>', MiniPick.builtin.buffers, 'Find buffers')
+-- keys.map('n', '<Leader>fh', MiniPick.builtin.help, 'Find help')
+-- keys.map('n', '<Leader>fg', MiniPick.builtin.grep_live, 'Find content')
+-- keys.map('n', '<Leader>*', '<cmd>Pick grep pattern='<cword>'<cr>', 'Grep string under cursor')
 
 -- mini.pairs
 add('echasnovski/mini.pairs')
@@ -55,9 +55,9 @@ require('mini.files').setup({
 })
 
 -- MINI.FILES Mappings
-keys.map('n', '-', function()
-	MiniFiles.open(vim.fn.expand('%'))
-end, 'Open file explorer')
+-- keys.map('n', '-', function()
+-- 	MiniFiles.open(vim.fn.expand('%'))
+-- end, 'Open file explorer')
 
 -- mini.notify
 add('echasnovski/mini.notify')
@@ -80,16 +80,16 @@ require('mini.notify').setup({
 vim.notify = MiniNotify.make_notify()
 
 -- Autocommands
-local group = event.augroup('MacroNotification')
-
-event.autocmd('RecordingEnter', {
-	group = group,
-	callback = function()
-		MiniNotify.add('(macro) Recording @' .. vim.fn.reg_recording())
-	end,
-})
-
-event.autocmd('RecordingLeave', { group = group, callback = MiniNotify.clear })
+-- local group = event.augroup('MacroNotification')
+-- 
+-- event.autocmd('RecordingEnter', {
+-- 	group = group,
+-- 	callback = function()
+-- 		MiniNotify.add('(macro) Recording @' .. vim.fn.reg_recording())
+-- 	end,
+-- })
+-- 
+-- event.autocmd('RecordingLeave', { group = group, callback = MiniNotify.clear })
 
 -- mini.comment
 add('echasnovski/mini.comment')
@@ -190,10 +190,10 @@ local function session(scope)
 end
 
 -- MINI.SESSION Mappings
-keys.map('n', '<Leader>sl', session('local'), 'Write a local session')
-keys.map('n', '<Leader>sw', session('write'), 'Write a session')
-keys.map('n', '<Leader>sr', session('read'), 'Read a session')
-keys.map('n', '<Leader>sd', session('delete'), 'Delete a session')
+-- keys.map('n', '<Leader>sl', session('local'), 'Write a local session')
+-- keys.map('n', '<Leader>sw', session('write'), 'Write a session')
+-- keys.map('n', '<Leader>sr', session('read'), 'Read a session')
+-- keys.map('n', '<Leader>sd', session('delete'), 'Delete a session')
 
 -- mini.visits
 add('echasnovski/mini.visits')
@@ -216,15 +216,15 @@ local function label(action)
 end
 
 -- MINI.VISITS Mappings
-keys.map('n', '<Leader>la', label('add'), 'Add to ' .. LABEL)
-keys.map('n', '<Leader>lr', label('remove'), 'Remove from ' .. LABEL)
+-- keys.map('n', '<Leader>la', label('add'), 'Add to ' .. LABEL)
+-- keys.map('n', '<Leader>lr', label('remove'), 'Remove from ' .. LABEL)
 
-keys.map('n', '<Leader>v', function()
-	MiniVisits.select_path(nil, { filter = LABEL })
-end, 'Find labels (current)')
-keys.map('n', '<Leader>V', function()
-	MiniVisits.select_path('', { filter = LABEL })
-end, 'Find labels (all)')
+-- keys.map('n', '<Leader>v', function()
+-- 	MiniVisits.select_path(nil, { filter = LABEL })
+-- end, 'Find labels (current)')
+-- keys.map('n', '<Leader>V', function()
+-- 	MiniVisits.select_path('', { filter = LABEL })
+-- end, 'Find labels (all)')
 
 -- mini.colors
 add('echasnovski/mini.colors')
@@ -266,13 +266,60 @@ require('mini.tabline').setup()
 -- mini.indentscope
 add('echasnovski/mini.indentscope')
 require('mini.indentscope').setup({
-	symbol = '?',
+	symbol = '|',
 })
 
 -- mini.statusline
 add('echasnovski/mini.statusline')
 local statusline = require('mini.statusline')
-statusline.setup({ use_icons = vim.g.have_nerd_font }),
+statusline.setup({ use_icons = vim.g.have_nerd_font })
 statusline.section_location = function()
 return '%2l:%-2v'
 end
+
+add({ source = 'echasnovski/mini.clue', checkout = 'stable' })
+
+local miniclue = require('mini.clue')
+miniclue.setup({
+  triggers = {
+    -- Leader triggers
+    { mode = 'n', keys = '<Leader>' },
+    { mode = 'x', keys = '<Leader>' },
+
+    -- Built-in completion
+    { mode = 'i', keys = '<C-x>' },
+
+    -- `g` key
+    { mode = 'n', keys = 'g' },
+    { mode = 'x', keys = 'g' },
+
+    -- Marks
+    { mode = 'n', keys = "'" },
+    { mode = 'n', keys = '`' },
+    { mode = 'x', keys = "'" },
+    { mode = 'x', keys = '`' },
+
+    -- Registers
+    { mode = 'n', keys = '"' },
+    { mode = 'x', keys = '"' },
+    { mode = 'i', keys = '<C-r>' },
+    { mode = 'c', keys = '<C-r>' },
+
+    -- Window commands
+    { mode = 'n', keys = '<C-w>' },
+
+    -- `z` key
+    { mode = 'n', keys = 'z' },
+    { mode = 'x', keys = 'z' },
+  },
+
+  clues = {
+    -- Enhance this by adding descriptions for <Leader> mapping groups
+    miniclue.gen_clues.builtin_completion(),
+    miniclue.gen_clues.g(),
+    miniclue.gen_clues.marks(),
+    miniclue.gen_clues.registers(),
+    miniclue.gen_clues.windows(),
+    miniclue.gen_clues.z(),
+  },
+})
