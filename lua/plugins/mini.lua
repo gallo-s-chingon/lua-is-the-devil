@@ -25,7 +25,7 @@ vim.keymap.set('n', '<leader>/', '<cmd>Pick files<cr>', { noremap = true, desc =
 vim.keymap.set('n', '<Leader>z', '<cmd>Pick resume<cr>', { noremap = true, desc = 'Resume last picker'})
 vim.keymap.set('n', '<Leader>b', '<cmd>Pick buffers<cr>', { noremap = true, desc = 'Find buffers'})
 vim.keymap.set('n', '<Leader>h', '<cmd>Pick help<cr>', { noremap = true, desc = 'Find help'})
-vim.keymap.set('n', '<Leader>g', '<cmd>Pick grep_live<cr>', { noremap = true, desc = 'Find content'})
+vim.keymap.set('n', '<Leader>r', '<cmd>Pick grep_live<cr>', { noremap = true, desc = 'Find content'})
 vim.keymap.set('n', '<Leader>*', '<cmd>Pick grep pattern="<cword>"<cr>', { noremap = true, desc = 'Grep string under cursor'})
 
 -- mini.pairs
@@ -59,18 +59,6 @@ require('mini.notify').setup({
 
 -- Use mini.notify for general notification
 vim.notify = MiniNotify.make_notify()
-
--- Autocommands
--- local group = event.augroup('MacroNotification')
---
--- event.autocmd('RecordingEnter', {
--- 	group = group,
--- 	callback = function()
--- 		MiniNotify.add('(macro) Recording @' .. vim.fn.reg_recording())
--- 	end,
--- })
---
--- event.autocmd('RecordingLeave', { group = group, callback = MiniNotify.clear })
 
 -- mini.comment
 add('echasnovski/mini.comment')
@@ -149,64 +137,6 @@ require('mini.trailspace').setup()
 add('echasnovski/mini.operators')
 require('mini.operators').setup()
 
--- mini.sessions
-add('echasnovski/mini.sessions')
-require('mini.sessions').setup({
-	autowrite = false,
-	verbose = { read = true },
-})
-
---- Wrapper around mini.sessions functions. Returns a function that
---- behaves differently based on the given scope.
-----@param scope 'local'|'write'|'read'|'delete'
----@return function
-local function session(scope)
-	return function()
-		if scope == 'local' then
-			MiniSessions.write('Session.vim')
-		else
-			MiniSessions.select(scope)
-		end
-	end
-end
-
--- MINI.SESSION Mappings
--- vim.keymap.set('n', '<Leader>sl', session('local'), 'Write a local session')
--- vim.keymap.set('n', '<Leader>sw', session('write'), 'Write a session')
--- vim.keymap.set('n', '<Leader>sr', session('read'), 'Read a session')
--- vim.keymap.set('n', '<Leader>sd', session('delete'), 'Delete a session')
-
--- mini.visits
-add('echasnovski/mini.visits')
-require('mini.visits').setup()
-
-local LABEL = 'core'
-
---- Wrapper around mini.visits functions. Returns a function that
---- behaves differently based on the given action.
-----@param action 'add'|'remove'
----@return function
-local function label(action)
-	return function()
-		if action == 'add' then
-			MiniVisits.add_label(LABEL)
-		elseif action == 'remove' then
-			MiniVisits.remove_label(LABEL)
-		end
-	end
-end
-
--- MINI.VISITS Mappings
--- vim.keymap.set('n', '<Leader>la', label('add'), 'Add to ' .. LABEL)
--- vim.keymap.set('n', '<Leader>lr', label('remove'), 'Remove from ' .. LABEL)
-
--- vim.keymap.set('n', '<Leader>v', function()
--- 	MiniVisits.select_path(nil, { filter = LABEL })
--- end, 'Find labels (current)')
--- vim.keymap.set('n', '<Leader>V', function()
--- 	MiniVisits.select_path('', { filter = LABEL })
--- end, 'Find labels (all)')
-
 -- mini.colors
 add('echasnovski/mini.colors')
 require('mini.colors').setup()
@@ -232,12 +162,6 @@ require('mini.completion').setup({
 	window = {
 		info = { border = 'single' },
 		signature = { border = 'single' },
-	},
-
-	fallback_action = '<C-x><C-l>',
-
-	mappings = {
-		force_twostep = '<C-h>',
 	},
 })
 
