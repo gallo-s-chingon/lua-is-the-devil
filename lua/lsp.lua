@@ -10,23 +10,17 @@ vim.diagnostic.config({
 	virtual_text = false,
 })
 
---
 -- Mason
---
 add({
 	source = "williamboman/mason-lspconfig.nvim",
 	depends = { "williamboman/mason.nvim", "neovim/nvim-lspconfig", "WhoIsSethDaniel/mason-tool-installer.nvim" },
 })
 
---
 -- Add documentation for nvim-lua api and plugins
---
 add("folke/neodev.nvim")
 require("neodev").setup()
 
---
 -- Mason
---
 require("mason").setup()
 
 require("mason-lspconfig").setup({
@@ -64,22 +58,3 @@ local function diagnostic(scope)
 		MiniExtra.pickers.diagnostic({ scope = scope })
 	end
 end
-
--- event.autocmd("LspAttach", {
--- 	group = event.augroup("LspConfig"),
--- 	callback = function(args)
--- 		local buffer = args.buf
-
--- 		keys.maplocal("n", "<Leader>gd", lsp("definition"), "Go to definitions", buffer)
--- 		keys.maplocal("n", "<Leader>gr", lsp("references"), "Go to references", buffer)
--- 		keys.maplocal("n", "<Leader>gt", lsp("type_definition"), "Go to type definitions", buffer)
--- 
--- 		keys.maplocal("n", "<Leader>w", diagnostic("all"), "Find diagnostic (all)", buffer)
--- 		keys.maplocal("n", "<Leader>d", diagnostic("current"), "Find diagnostic (current)", buffer)
--- 
--- 		keys.maplocal("n", "<Leader>lr", vim.cmd.LspRestart, "Restart Lsp client", buffer)
--- 	end,
--- })
-
--- Mappings
--- keys.map("n", "<Leader>li", "<cmd>LspInfo<cr>", "Show LSP info")

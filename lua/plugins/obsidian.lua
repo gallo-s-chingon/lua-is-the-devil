@@ -1,28 +1,27 @@
-return {
-  'epwalsh/obsidian.nvim',
-  version = '*', -- recommended, use latest release instead of latest commit
-  lazy = true,
+local add = MiniDeps.add
+add{
+  source = 'epwalsh/obsidian.nvim',
+  depends = { 'nvim-lua/plenary.nvim' },
   ft = 'markdown',
-  dependencies = {
-    'nvim-lua/plenary.nvim',
-  },
   opts = {
     workspaces = {
       {
         name = 'notes',
-        path = '/Users/gchingon/Documents/ozel',
+        path = '$HOME/Documents/ozel',
         daily_notes = {
           folder = '%Y/%m/',
         },
       },
       {
         name = 'novel',
-        path = '/Users/gchingon/Documents/novel/',
+        path = '$HOME/Documents/novel/',
         'prepend_new_note_path',
       },
     },
   },
-
+picker = {
+    name = 'mini.deps',
+  },
   ui = {
     enable = true,
     update_debounce = 500,
@@ -42,7 +41,7 @@ return {
   },
 
   templates = {
-    folder = '/Users/gchingon/.config/templates',
+    folder = '$HOME/.config/templates',
     date_format = '%Y-%m-%d',
     time_format = '%H:%M',
   },
