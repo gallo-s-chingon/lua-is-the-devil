@@ -45,7 +45,7 @@ return {
 					["<S-k>"] = cmp.mapping.select_prev_item(),
 					["<C-b>"] = cmp.mapping.scroll_docs(-4),
 					["<C-f>"] = cmp.mapping.scroll_docs(4),
-					["S-<cr>"] = cmp.mapping.confirm({ select = true }),
+					["<S-Enter>"] = cmp.mapping.confirm({ select = true }),
 					["<C-Space>"] = cmp.mapping.complete({}),
 					["<C-l>"] = function()
 						if luasnip.expand_or_locally_jumpable() then
