@@ -1,251 +1,169 @@
-local add = MiniDeps.add
+return {
+	{
+		"echasnovski/mini.nvim",
+		config = function()
+			require("mini.extra").setup()
 
--- mini.extra
-add('echasnovski/mini.extra')
-require('mini.extra').setup()
+			require("mini.pick").setup({
+				source = {
+					show = require("mini.pick").default_show,
+				},
+			})
 
--- MINI.EXTRA Mappings
-vim.keymap.set('n', '<Leader>k', '<cmd>Pick diagnostic<cr>', { noremap = true, desc = 'Find keymaps' })
-vim.keymap.set('n', '<Leader>s', '<cmd>Pick spellsuggest<cr>', { noremap = true, desc = 'Find spelling' })
-vim.keymap.set('n', '<Leader>y', '<cmd>Pick history<cr>', { noremap = true, desc = 'History search' })
+			vim.ui.select = require("mini.pick").ui_select
 
-add('echasnovski/mini.pick')
-require('mini.pick').setup({
-	source = {
-		show = require('mini.pick').default_show,
-	},
+			require("mini.pairs").setup({
+				modes = { insert = true, command = true, terminal = true },
+			})
 
-})
+			require("mini.basics").setup({
+				options = {
+					extra_ui = true,
+				},
+			})
 
--- Use mini.pick as the default selector in vim
-vim.ui.select = MiniPick.ui_select
+			require("mini.notify").setup({
+				content = {
+					format = function(notif)
+						return notif.msg
+					end,
+				},
+				window = {
+					config = {
+						border = "rounded",
+					},
+				},
+			})
 
--- MINI.PICK Mappings
-vim.keymap.set('n', '<leader>/', '<cmd>Pick files<cr>', { noremap = true, desc = 'mini FILE search' })
-vim.keymap.set('n', '<Leader>z', '<cmd>Pick resume<cr>', { noremap = true, desc = 'Resume last picker'})
-vim.keymap.set('n', '<Leader>b', '<cmd>Pick buffers<cr>', { noremap = true, desc = 'Find buffers'})
-vim.keymap.set('n', '<Leader>h', '<cmd>Pick help<cr>', { noremap = true, desc = 'Find help'})
-vim.keymap.set('n', '<Leader>r', '<cmd>Pick grep_live<cr>', { noremap = true, desc = 'Find content'})
-vim.keymap.set('n', '<Leader>*', '<cmd>Pick grep pattern="<cword>"<cr>', { noremap = true, desc = 'Grep string under cursor'})
+			require("mini.diff").setup({
+				view = {
+					style = "sign",
+					signs = { add = "+", change = "~", delete = "-" },
+				},
+			})
 
--- mini.pairs
-add('echasnovski/mini.pairs')
-require('mini.pairs').setup({
-	modes = { insert = true, command = true, terminal = true },
-})
+			vim.notify = require("mini.notify").make_notify()
 
-require('mini.basics').setup({
-  options = {
-    extra_ui = true,
-  },
-})
+			require("mini.comment").setup({
+				options = { ignore_blank_line = true },
+			})
 
--- mini.notify
-add('echasnovski/mini.notify')
-require('mini.notify').setup({
-	content = {
-		-- Use notification message as is
-		format = function(notif)
-			return notif.msg
+			require("mini.move").setup({
+				mappings = {
+					down = "<C-J>",
+					up = "<C-K>",
+					left = "<C-H>",
+					right = "<C-L>",
+					line_down = "<C-J>",
+					line_up = "<C-K>",
+					line_left = "<C-H>",
+					line_right = "<C-L>",
+				},
+			})
+
+			require("mini.surround").setup({
+				keys = function(_, keys)
+					local plugin = require("lazy.core.config").spec.plugins["mini.surround"]
+					local opts = require("lazy.core.plugin").values(plugin, "opts", false)
+					local mappings = {
+						{ opts.mappings.add, desc = "Add Surrounding", mode = { "n", "v" } },
+						{ opts.mappings.delete, desc = "Delete Surrounding" },
+						{ opts.mappings.find, desc = "Find Right Surrounding" },
+						{ opts.mappings.find_left, desc = "Find Left Surrounding" },
+						{ opts.mappings.highlight, desc = "Highlight Surrounding" },
+						{ opts.mappings.replace, desc = "Replace Surrounding" },
+						{ opts.mappings.update_n_lines, desc = "Update `MiniSurround.config.n_lines`" },
+					}
+					mappings = vim.tbl_filter(function(m)
+						return m[1] and #m[1] > 0
+					end, mappings)
+					return vim.list_extend(mappings, keys)
+				end,
+				opts = {
+					mappings = {
+						add = "<leader>sa",
+						delete = "<leader>sd",
+						find = "<leader>sf",
+						find_left = "<leader>sg",
+						highlight = "<leader>sh",
+						replace = "<leader>sr",
+						update_n_lines = "<leader>sn",
+					},
+				},
+			})
+
+			require("mini.ai").setup({
+				custom_textobjects = {
+					B = require("mini.extra").gen_ai_spec.buffer(),
+					L = require("mini.extra").gen_ai_spec.line(),
+				},
+			})
+
+			require("mini.bracketed").setup({
+				treesitter = { suffix = "" },
+				oldfile = { suffix = "" },
+				diagnostic = { suffix = "" },
+			})
+
+			require("mini.jump").setup({
+				mappings = {
+					repeat_jump = ",",
+				},
+				delay = {
+					highlight = 0,
+				},
+			})
+
+			require("mini.splitjoin").setup()
+			require("mini.trailspace").setup()
+			require("mini.operators").setup()
+			require("mini.colors").setup()
+			require("mini.tabline").setup()
+			local hipatterns = require("mini.hipatterns")
+			require("mini.hipatterns").setup({
+				highlighters = {
+					hex_color = hipatterns.gen_highlighter.hex_color(),
+				},
+			})
+			require("mini.statusline").setup({
+				statusline = {
+					setup = function(config)
+						config.use_icons = vim.g.have_nerd_font
+						return config
+					end,
+					section_location = function()
+						return "%2l:%-2v"
+					end,
+				},
+			})
+
+			require("mini.clue").setup({
+				triggers = {
+					{ mode = "n", keys = "<Leader>" },
+					{ mode = "x", keys = "<Leader>" },
+					{ mode = "n", keys = "g" },
+					{ mode = "x", keys = "g" },
+					{ mode = "n", keys = "'" },
+					{ mode = "n", keys = "`" },
+					{ mode = "x", keys = "'" },
+					{ mode = "x", keys = "`" },
+					{ mode = "n", keys = "'" },
+					{ mode = "x", keys = "'" },
+					{ mode = "i", keys = "<C-r>" },
+					{ mode = "c", keys = "<C-r>" },
+					{ mode = "n", keys = "<C-w>" },
+					{ mode = "n", keys = "z" },
+					{ mode = "x", keys = "z" },
+				},
+				clues = {
+					require("mini.clue").gen_clues.builtin_completion(),
+					require("mini.clue").gen_clues.g(),
+					require("mini.clue").gen_clues.marks(),
+					require("mini.clue").gen_clues.registers(),
+					require("mini.clue").gen_clues.windows(),
+					require("mini.clue").gen_clues.z(),
+				},
+			})
 		end,
 	},
-
-	window = {
-		config = {
-			border = 'rounded',
-		},
-	},
-})
-
--- Use mini.notify for general notification
-vim.notify = MiniNotify.make_notify()
-
--- mini.comment
-add('echasnovski/mini.comment')
-require('mini.comment').setup({
-	options = { ignore_blank_line = true },
-})
-
--- mini.move
-add('echasnovski/mini.move')
-require('mini.move').setup({
-	mappings = {
-		-- Normal mode
-		down = '<C-J>',
-		up = '<C-K>',
-		left = '<C-H>',
-		right = '<C-L>',
-
-		-- Visual node
-		line_down = '<C-J>',
-		line_up = '<C-K>',
-		line_left = '<C-H>',
-		line_right = '<C-L>',
-	},
-})
-
--- mini.surrounds
-add('echasnovski/mini.surround')
-require('mini.surround').setup({
-  keys = function(_, keys)
-    -- Populate the keys based on the user's options
-    local plugin = require("lazy.core.config").spec.plugins["mini.surround"]
-    local opts = require("lazy.core.plugin").values(plugin, "opts", false)
-    local mappings = {
-      { opts.mappings.add, desc = "Add Surrounding", mode = { "n", "v" } },
-      { opts.mappings.delete, desc = "Delete Surrounding" },
-      { opts.mappings.find, desc = "Find Right Surrounding" },
-      { opts.mappings.find_left, desc = "Find Left Surrounding" },
-      { opts.mappings.highlight, desc = "Highlight Surrounding" },
-      { opts.mappings.replace, desc = "Replace Surrounding" },
-      { opts.mappings.update_n_lines, desc = "Update `MiniSurround.config.n_lines`" },
-    }
-    mappings = vim.tbl_filter(function(m)
-      return m[1] and #m[1] > 0
-    end, mappings)
-    return vim.list_extend(mappings, keys)
-  end,
-  opts = {
-    mappings = {
-      add = "gsa", -- Add surrounding in Normal and Visual modes
-      delete = "gsd", -- Delete surrounding
-      find = "gsf", -- Find surrounding (to the right)
-      find_left = "gsF", -- Find surrounding (to the left)
-      highlight = "gsh", -- Highlight surrounding
-      replace = "gsr", -- Replace surrounding
-      update_n_lines = "gsn", -- Update `n_lines`
-    },
-  },
-})
-
--- mini.ai
-add('echasnovski/mini.ai')
-require('mini.ai').setup({
-	custom_textobjects = {
-		B = MiniExtra.gen_ai_spec.buffer(),
-		I = MiniExtra.gen_ai_spec.indent(),
-		L = MiniExtra.gen_ai_spec.line(),
-	},
-})
-
--- mini.bracketed
-add('echasnovski/mini.bracketed')
-require('mini.bracketed').setup({
-	treesitter = { suffix = '' },
-	oldfile = { suffix = '' },
-	diagnostic = { suffix = '' },
-})
-
--- mini.jump
-add('echasnovski/mini.jump')
-require('mini.jump').setup({
-	mappings = {
-		repeat_jump = ',',
-	},
-
-	delay = {
-		highlight = 0,
-	},
-})
-
--- mini.splitjoin
-add('echasnovski/mini.splitjoin')
-require('mini.splitjoin').setup()
-
--- mini.trailspace
-add('echasnovski/mini.trailspace')
-require('mini.trailspace').setup()
-
--- mini.operators
-add('echasnovski/mini.operators')
-require('mini.operators').setup()
-
--- mini.colors
-add('echasnovski/mini.colors')
-require('mini.colors').setup()
-
--- mini.hipatterns
-add('echasnovski/mini.hipatterns')
-local hipatterns = require('mini.hipatterns')
-local words = MiniExtra.gen_highlighter.words
-
-hipatterns.setup({
-	highlighters = {
-		hex_color = hipatterns.gen_highlighter.hex_color(),
-		todo = words({ 'TODO', 'todo' }, 'MiniHipatternsTodo'),
-		note = words({ 'NOTE', 'note' }, 'MiniHipatternsNote'),
-		fixme = words({ 'FIXME', 'fixme' }, 'MiniHipatternsFixme'),
-    hack = words({ 'HACK', 'hack' }, 'MiniHipatternsHack'),
-	},
-})
-
--- mini.completion
-add('echasnovski/mini.completion')
-require('mini.completion').setup({
-	window = {
-		info = { border = 'single' },
-		signature = { border = 'single' },
-	},
-})
-
--- mini.tabline
-add('echasnovski/mini.tabline')
-require('mini.tabline').setup()
-
--- mini.indentscope
-add('echasnovski/mini.indentscope')
-require('mini.indentscope').setup({
-	symbol = '|',
-})
-
--- mini.statusline
-add('echasnovski/mini.statusline')
-local statusline = require('mini.statusline')
-statusline.setup({ use_icons = vim.g.have_nerd_font })
-statusline.section_location = function()
-return '%2l:%-2v'
-end
-
-add({ source = 'echasnovski/mini.clue', checkout = 'stable' })
-
-local miniclue = require('mini.clue')
-miniclue.setup({
-  triggers = {
-    -- Leader triggers
-    { mode = 'n', keys = '<Leader>' },
-    { mode = 'x', keys = '<Leader>' },
-
-    -- `g` key
-    { mode = 'n', keys = 'g' },
-    { mode = 'x', keys = 'g' },
-
-    -- Marks
-    { mode = 'n', keys = "'" },
-    { mode = 'n', keys = '`' },
-    { mode = 'x', keys = "'" },
-    { mode = 'x', keys = '`' },
-
-    -- Registers
-    { mode = 'n', keys = "'" },
-    { mode = 'x', keys = "'" },
-    { mode = 'i', keys = '<C-r>' },
-    { mode = 'c', keys = '<C-r>' },
-
-    -- Window commands
-    { mode = 'n', keys = '<C-w>' },
-
-    -- `z` key
-    { mode = 'n', keys = 'z' },
-    { mode = 'x', keys = 'z' },
-  },
-
-  clues = {
-    -- Enhance this by adding descriptions for <Leader> mapping groups
-    miniclue.gen_clues.builtin_completion(),
-    miniclue.gen_clues.g(),
-    miniclue.gen_clues.marks(),
-    miniclue.gen_clues.registers(),
-    miniclue.gen_clues.windows(),
-    miniclue.gen_clues.z(),
-  },
-})
+}

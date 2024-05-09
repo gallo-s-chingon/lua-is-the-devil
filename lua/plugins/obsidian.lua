@@ -1,48 +1,62 @@
-local add = MiniDeps.add
-add{
-  source = 'epwalsh/obsidian.nvim',
-  depends = { 'nvim-lua/plenary.nvim' },
-  ft = 'markdown',
-  opts = {
-    workspaces = {
-      {
-        name = 'notes',
-        path = '$HOME/Documents/ozel',
-        daily_notes = {
-          folder = '%Y/%m/',
-        },
-      },
-      {
-        name = 'novel',
-        path = '$HOME/Documents/novel/',
-        'prepend_new_note_path',
-      },
-    },
-  },
-picker = {
-    name = 'mini.deps',
-  },
-  ui = {
-    enable = true,
-    update_debounce = 500,
-  },
+return {
+	"epwalsh/obsidian.nvim",
+	version = "*", -- recommended, use latest release instead of latest commit
+	lazy = true,
+	ft = "markdown",
+	dependencies = {
+		"nvim-lua/plenary.nvim",
+	},
+	opts = {
+		workspaces = {
+			{
+				name = "notes",
+				path = "/Users/gchingon/Documents/ozel",
+				daily_notes = {
+					folder = "%Y/%m/",
+					{
+						{
+							name = "novel",
+							path = "/Users/gchingon/Documents/novel/",
+						},
+					},
+					ui = {
+						enable = true,
+						update_debounce = 500,
+					},
+				},
+				completion = {
+					nvim_cmp = true,
+					min_chars = 3,
+				},
+				mappings = {
+					["<leader>Of"] = {
+						action = function()
+							return require("obsidian").util.gf_passthrough()
+						end,
+						opts = { noremap = false, expr = true, buffer = true },
+					},
+				},
 
-  completion = {
-    nvim_cmp = true,
-    min_chars = 3,
-  },
+				note_frontmatter_func = function(note)
+					-- This is equivalent to the default frontmatter function.
+					local out = { id = note.id, tags = note.tags, area = "", project = "" }
+					-- `note.metadata` contains any manually added fields in the frontmatter.
+					-- So here we just make sure those fields are kept in the frontmatter.
+					if note.metadata ~= nil and not vim.tbl_isempty(note.metadata) then
+						for k, v in pairs(note.metadata) do
+							out[k] = v
+						end
+					end
+					return out
+				end,
 
-  keys = {
-    { '<leader>on', '<cmd>ObsidianNew<cr>', desc = 'New Obsidian note', mode = 'n' },
-    { '<leader>oo', '<cmd>ObsidianSearch<cr>', desc = 'Search Obsidian notes', mode = 'n' },
-    { '<leader>os', '<cmd>ObsidianQuickSwitch<cr>', desc = 'Quick Switch', mode = 'n' },
-    { '<leader>ob', '<cmd>ObsidianBacklinks<cr>', desc = 'Show location list of backlinks', mode = 'n' },
-    { '<leader>ot', '<cmd>ObsidianTemplate<cr>', desc = 'Follow link under cursor', mode = 'n' },
-  },
-
-  templates = {
-    folder = '$HOME/.config/templates',
-    date_format = '%Y-%m-%d',
-    time_format = '%H:%M',
-  },
+				templates = {
+					subdir = "templates",
+					date_format = "%Y-%m-%d",
+					time_format = "%H:%M",
+					tags = "",
+				},
+			},
+		},
+	},
 }
