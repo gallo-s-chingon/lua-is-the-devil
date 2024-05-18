@@ -21,7 +21,6 @@ vim.cmd("set tabstop=2")
 vim.cmd("set softtabstop=2")
 vim.cmd("set shiftwidth=2")
 vim.opt.breakindent = true
-vim.opt.undodir = "$HOME/.config/nvim/undodir"
 vim.opt.undofile = true -- Enable undo history
 vim.opt.ignorecase = true -- Case-insensitive searching
 vim.opt.smartcase = true -- unless \C or one or more capital letters in the search term
