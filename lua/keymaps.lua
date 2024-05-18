@@ -1,13 +1,13 @@
 local Vap = function(keys, func, opts)
 	if type(opts) == "string" then
-		opts = { desc = opts} 
+		opts = { desc = opts }
 	end
 	vim.keymap.set({ "n", "v" }, keys, func, opts)
 end
 
-local map = function(keys, func, desc)
+local map = function(keys, func, opts)
 	if type(opts) == "string" then
-		opts = { desc = opts} 
+		opts = { desc = opts }
 	end
 	vim.keymap.set("n", keys, func, opts)
 end
@@ -44,17 +44,18 @@ map("<S-l>", "<cmd>bnext<cr>", "Next Buffer")
 map("<leader>-", "<cmd>bd<cr>", "Delete Current Buffer")
 -- Keybinds to make split navigation easier. Use CTRL+<hjkl> to switch between windows
 map("<C-h>", "<C-w><C-h>", "Move focus to the left window")
+
 map("<C-l>", "<C-w><C-l>", "Move focus to the right window")
 map("<C-j>", "<C-w><C-j>", "Move focus to the lower window")
 map("<C-k>", "<C-w><C-k>", "Move focus to the upper window")
 -- MINI.PICK Mappings
 map("<Leader>r", "<cmd>Pick grep_live<cr>", "g[R]ep find content")
 -- MINI.EXTRA Mappings
-map("<leader>On", "<cmd>ObsidianNew<cr>", "New Obsidinote")
-map("<leader>Oo", "<cmd>ObsidianSearch<cr>", "Search Obsidinotes")
-map("<leader>Os", "<cmd>ObsidianQuickSwitch<cr>", "Quick Switch")
-map("<leader>Ob", "<cmd>ObsidianBacklinks<cr>", "backlink location")
-map("<leader>Ot", "<cmd>ObsidianTemplate<cr>", "Follow cursorlink")
+map("<leader>On", "<cmd>ObsidianNew<cr>", "[O]bsidian [n]ew note")
+map("<leader>O/", "<cmd>ObsidianSearch<cr>", "[O]bsidinotes [/]search")
+map("<leader>Ol", "<cmd>ObsidianFollowLink<cr>", "[O]bsidian open [l]ink")
+map("<leader>OT", "<cmd>ObsidianTemplate<cr>", "[O]pen [T]emplate")
+map("<leader>Ot", "<cmd>ObsidianToday<cr>", "[O]pen daily [t]oday")
 -- Set the Telescope keymaps
 local telebind = function(keys, func_name, desc)
 	vim.keymap.set("n", keys, function()

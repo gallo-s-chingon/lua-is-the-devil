@@ -122,6 +122,10 @@ return {
 			local hipatterns = require("mini.hipatterns")
 			require("mini.hipatterns").setup({
 				highlighters = {
+					find = { pattern = "%f[%w]()FIND()%f[%W]", group = "DiffAdd" },
+					idea = { pattern = "%f[%w]()IDEA()%f[%W]", group = "TabLineSel" },
+					todo = { pattern = "%f[%w]()TODO()%f[%W]", group = "DiffDelete" },
+					note = { pattern = "%f[%w]()NOTE()%f[%W]", group = "@comment.hint" },
 					hex_color = hipatterns.gen_highlighter.hex_color(),
 				},
 			})
@@ -131,12 +135,8 @@ return {
 						config.use_icons = vim.g.have_nerd_font
 						return config
 					end,
-					section_location = function()
-						return "%2l:%-2v"
-					end,
 				},
 			})
-
 			require("mini.clue").setup({
 				triggers = {
 					{ mode = "n", keys = "<Leader>" },
