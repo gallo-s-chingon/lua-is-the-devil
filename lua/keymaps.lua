@@ -1,9 +1,15 @@
-local Vap = function(keys, func, desc)
-	vim.keymap.set({ "n", "v" }, keys, func, { desc = desc })
+local Vap = function(keys, func, opts)
+	if type(opts) == "string" then
+		opts = { desc = opts} 
+	end
+	vim.keymap.set({ "n", "v" }, keys, func, opts)
 end
 
 local map = function(keys, func, desc)
-	vim.keymap.set("n", keys, func, { desc = desc })
+	if type(opts) == "string" then
+		opts = { desc = opts} 
+	end
+	vim.keymap.set("n", keys, func, opts)
 end
 
 map("<Esc>", "<cmd>nohlsearch<CR>")
