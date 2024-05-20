@@ -34,3 +34,12 @@ vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 vim.opt.inccommand = "split" -- Preview substitutions live, as you type
 vim.opt.cursorline = false -- Set cursor line
 vim.opt.scrolloff = 10 -- Set scroll offset
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "sh",
+	callback = function()
+		vim.lsp.start({
+			name = "bash-language-server",
+			cmd = { "bash-language-server", "start" },
+		})
+	end,
+})
