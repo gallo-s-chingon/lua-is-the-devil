@@ -48,19 +48,6 @@ return {
 				options = { ignore_blank_line = true },
 			})
 
-			require("mini.move").setup({
-				mappings = {
-					down = "<C-J>",
-					up = "<C-K>",
-					left = "<C-H>",
-					right = "<C-L>",
-					line_down = "<C-J>",
-					line_up = "<C-K>",
-					line_left = "<C-H>",
-					line_right = "<C-L>",
-				},
-			})
-
 			require("mini.surround").setup({
 				keys = function(_, keys)
 					local plugin = require("lazy.core.config").spec.plugins["mini.surround"]
