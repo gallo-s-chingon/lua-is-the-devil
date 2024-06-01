@@ -70,7 +70,7 @@ return {
 		end,
 
 		templates = {
-			folder = "$HOME/.dotfiles/templates",
+			folder = "$HOME/.config/templates",
 			date_format = "%Y-%m-%d",
 			time_format = "%H:%M",
 			tags = "",
