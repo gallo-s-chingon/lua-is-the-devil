@@ -1,142 +1,162 @@
 return {
-	{
-		"echasnovski/mini.nvim",
-		config = function()
-			require("mini.extra").setup()
+    {
+        "echasnovski/mini.nvim",
+        config = function()
+            require("mini.extra").setup()
 
-			require("mini.pick").setup({
-				source = {
-					show = require("mini.pick").default_show,
-				},
-			})
+            require("mini.pick").setup({
+                source = {
+                    show = require("mini.pick").default_show,
+                },
+            })
 
-			vim.ui.select = require("mini.pick").ui_select
+            vim.ui.select = require("mini.pick").ui_select
 
-			require("mini.pairs").setup({
-				modes = { insert = true, command = true, terminal = true },
-			})
+            require("mini.pairs").setup({
+                modes = { insert = true, command = true, terminal = true },
+            })
 
-			require("mini.basics").setup({
-				options = {
-					extra_ui = true,
-				},
-			})
+            require("mini.basics").setup({
+                options = {
+                    extra_ui = true,
+                },
+            })
 
-			require("mini.notify").setup({
-				content = {
-					format = function(notif)
-						return notif.msg
-					end,
-				},
-				window = {
-					config = {
-						border = "rounded",
-					},
-				},
-			})
+            require("mini.notify").setup({
+                content = {
+                    format = function(notif)
+                        return notif.msg
+                    end,
+                },
+                window = {
+                    config = {
+                        border = "rounded",
+                    },
+                },
+            })
 
-			require("mini.diff").setup({
-				view = {
-					style = "sign",
-					signs = { add = "+", change = "~", delete = "-" },
-				},
-			})
+            require("mini.diff").setup({
+                view = {
+                    style = "sign",
+                    signs = { add = "+", change = "~", delete = "-" },
+                },
+            })
 
-			vim.notify = require("mini.notify").make_notify()
+            vim.notify = require("mini.notify").make_notify()
 
-			require("mini.comment").setup({
-				options = { ignore_blank_line = true },
-			})
+            require("mini.comment").setup({
+                options = { ignore_blank_line = true },
+            })
 
-			require("mini.surround").setup({
-				keys = function(_, keys)
-					local plugin = require("lazy.core.config").spec.plugins["mini.surround"]
-					local opts = require("lazy.core.plugin").values(plugin, "opts", false)
-					local mappings = {
-						{ opts.mappings.add, desc = "Add Surrounding", mode = { "n", "v" } },
-						{ opts.mappings.delete, desc = "Delete Surrounding" },
-						{ opts.mappings.find, desc = "Find Right Surrounding" },
-						{ opts.mappings.find_left, desc = "Find Left Surrounding" },
-						{ opts.mappings.highlight, desc = "Highlight Surrounding" },
-						{ opts.mappings.replace, desc = "Replace Surrounding" },
-						{ opts.mappings.update_n_lines, desc = "Update `MiniSurround.config.n_lines`" },
-					}
-					mappings = vim.tbl_filter(function(m)
-						return m[1] and #m[1] > 0
-					end, mappings)
-					return vim.list_extend(mappings, keys)
-				end,
-				opts = {
-					mappings = {
-						add = "<leader>sa",
-						delete = "<leader>sd",
-						find = "<leader>sf",
-						find_left = "<leader>sg",
-						highlight = "<leader>sh",
-						replace = "<leader>sr",
-						update_n_lines = "<leader>sn",
-					},
-				},
-			})
+            require("mini.surround").setup({
+                keys = function(_, keys)
+                    local plugin = require("lazy.core.config").spec.plugins["mini.surround"]
+                    local opts = require("lazy.core.plugin").values(plugin, "opts", false)
+                    local mappings = {
+                        { opts.mappings.add, desc = "Add Surrounding", mode = { "n", "v" } },
+                        { opts.mappings.delete, desc = "Delete Surrounding" },
+                        { opts.mappings.find, desc = "Find Right Surrounding" },
+                        { opts.mappings.find_left, desc = "Find Left Surrounding" },
+                        { opts.mappings.highlight, desc = "Highlight Surrounding" },
+                        { opts.mappings.replace, desc = "Replace Surrounding" },
+                        { opts.mappings.update_n_lines, desc = "Update `MiniSurround.config.n_lines`" },
+                    }
+                    mappings = vim.tbl_filter(function(m)
+                        return m[1] and #m[1] > 0
+                    end, mappings)
+                    return vim.list_extend(mappings, keys)
+                end,
+                opts = {
+                    mappings = {
+                        add = "<leader>sa",
+                        delete = "<leader>sd",
+                        find = "<leader>sf",
+                        find_left = "<leader>sg",
+                        highlight = "<leader>sh",
+                        replace = "<leader>sr",
+                        update_n_lines = "<leader>sn",
+                    },
+                },
+            })
 
-			require("mini.ai").setup({
-				custom_textobjects = {
-					B = require("mini.extra").gen_ai_spec.buffer(),
-					L = require("mini.extra").gen_ai_spec.line(),
-				},
-			})
+            require("mini.ai").setup({
+                custom_textobjects = {
+                    B = require("mini.extra").gen_ai_spec.buffer(),
+                    L = require("mini.extra").gen_ai_spec.line(),
+                },
+            })
 
-			require("mini.bracketed").setup({
-				treesitter = { suffix = "" },
-				oldfile = { suffix = "" },
-				diagnostic = { suffix = "" },
-			})
+            require("mini.bracketed").setup({
+                treesitter = { suffix = "" },
+                oldfile = { suffix = "" },
+                diagnostic = { suffix = "" },
+            })
 
-			require("mini.jump").setup({
-				mappings = {
-					repeat_jump = ",",
-				},
-				delay = {
-					highlight = 0,
-				},
-			})
+            require("mini.jump").setup({
+                mappings = {
+                    repeat_jump = ",",
+                },
+                delay = {
+                    highlight = 0,
+                },
+            })
 
-			require("mini.splitjoin").setup()
-			require("mini.trailspace").setup()
-			require("mini.operators").setup()
-			require("mini.colors").setup()
-			require("mini.tabline").setup()
-			require("mini.statusline").setup({
-				statusline = {
-					setup = function(config)
-						config.use_icons = vim.g.have_nerd_font
-						return config
-					end,
-				},
-			})
-			require("mini.clue").setup({
-				triggers = {
-					{ mode = "n", keys = "<Leader>" },
-					{ mode = "x", keys = "<Leader>" },
-					{ mode = "n", keys = "g" },
-					{ mode = "x", keys = "g" },
-					{ mode = "n", keys = "'" },
-					{ mode = "x", keys = "'" },
-					{ mode = "i", keys = "<C-r>" },
-					{ mode = "c", keys = "<C-r>" },
-					{ mode = "n", keys = "<C-w>" },
-					{ mode = "n", keys = "z" },
-					{ mode = "x", keys = "z" },
-				},
-				clues = {
-					require("mini.clue").gen_clues.builtin_completion(),
-					require("mini.clue").gen_clues.g(),
-					require("mini.clue").gen_clues.marks(),
-					require("mini.clue").gen_clues.registers(),
-					require("mini.clue").gen_clues.windows(),
-					require("mini.clue").gen_clues.z(),
-				},
-			})
-		end,
-	},
+            require("mini.splitjoin").setup()
+            require("mini.trailspace").setup()
+						local markdown_snippets = require("plugins.markdown")
+require("mini.completion").setup({
+    dependencies = {
+        "mini.icons",
+    },
+    delay = { completion = 100, info = 100, signature = 50 },
+    window = {
+        info = { height = 30, width = 100, border = "rounded" },
+    },
+    lsp_completion = {
+        source_func = function(_, _, _, _)
+            return markdown_snippets
+        end,  -- This 'end' closes the function
+        auto_setup = true,
+    }
+})
+
+            require("mini.operators").setup()
+            require("mini.colors").setup()
+            require("mini.tabline").setup()
+            
+            require("mini.statusline").setup({
+                statusline= {
+                    setup= function(config)
+                        config.use_icons= vim.g.have_nerd_font
+                        return config
+                    end,
+                },
+            })
+            
+            require("mini.clue").setup({
+                triggers= {
+                    { mode="n", keys="<Leader>" },
+                    { mode="x", keys="<Leader>" },
+                    { mode="n", keys="g" },
+                    { mode="x", keys="g" },
+                    { mode="n", keys="'" },
+                    { mode="x", keys="'" },
+                    { mode="i", keys="<C-r>" },
+                    { mode="c", keys="<C-r>" },
+                    { mode="n", keys="<C-w>" },
+                    { mode="n", keys="z" },
+                    { mode="x", keys="z" },
+                },
+                
+                clues= {
+                    require("mini.clue").gen_clues.builtin_completion(),
+                    require("mini.clue").gen_clues.g(),
+                    require("mini.clue").gen_clues.marks(),
+                    require("mini.clue").gen_clues.registers(),
+                    require("mini.clue").gen_clues.windows(),
+                    require("mini.clue").gen_clues.z(),
+                }
+            })
+        end,
+    }
 }

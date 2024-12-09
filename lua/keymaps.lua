@@ -55,11 +55,21 @@ map("<leader>gh", "<cmd>Git help<cr>", "Git help")
 map("<S-h>", "<cmd>bprevious<cr>", "Prev Buffer")
 map("<S-l>", "<cmd>bnext<cr>", "Next Buffer")
 map("<leader>-", "<cmd>bd<cr>", "Delete Current Buffer")
--- Keybinds to make split navigation easier. Use CTRL+<hjkl> to switch between windows
-map("<C-h>", "<C-w><C-h>", "Move focus to the left window")
-map("<C-l>", "<C-w><C-l>", "Move focus to the right window")
-map("<C-j>", "<C-w><C-j>", "Move focus to the lower window")
-map("<C-k>", "<C-w><C-k>", "Move focus to the upper window")
+vim.keymap.set("i", "<Tab>", function()
+    if require('luasnip').expand_or_jumpable() then
+        return '<Plug>luasnip-expand-or-jump'
+    else
+        return '<Tab>'
+    end
+end, { expr = true, silent = true })
+
+vim.keymap.set("i", "<S-Tab>", function()
+    if require('luasnip').jumpable(-1) then
+        return '<Plug>luasnip-jump-prev'
+    else
+        return '<S-Tab>'
+    end
+end, { expr = true, silent = true })
 -- MINI.PICK Mappings
 map("<Leader>r", "<cmd>Pick grep_live<cr>", "g[R]ep find content")
 -- MINI.EXTRA Mappings
