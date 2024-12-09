@@ -106,16 +106,6 @@ return {
 			require("mini.operators").setup()
 			require("mini.colors").setup()
 			require("mini.tabline").setup()
-			local hipatterns = require("mini.hipatterns")
-			require("mini.hipatterns").setup({
-				highlighters = {
-					find = { pattern = "%f[%w]()FIND()%f[%W]", group = "DiffAdd" },
-					idea = { pattern = "%f[%w]()IDEA()%f[%W]", group = "TabLineSel" },
-					todo = { pattern = "%f[%w]()TODO()%f[%W]", group = "DiffDelete" },
-					note = { pattern = "%f[%w]()NOTE()%f[%W]", group = "@comment.hint" },
-					hex_color = hipatterns.gen_highlighter.hex_color(),
-				},
-			})
 			require("mini.statusline").setup({
 				statusline = {
 					setup = function(config)

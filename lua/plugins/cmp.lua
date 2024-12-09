@@ -16,6 +16,7 @@ return {
 						"rafamadriz/friendly-snippets",
 						config = function()
 							require("luasnip.loaders.from_vscode").lazy_load()
+							print("Friendly snippets loaded")
 						end,
 					},
 				},
@@ -29,34 +30,32 @@ return {
 			local cmp = require("cmp")
 			local luasnip = require("luasnip")
 
-			luasnip.config.setup({})
-
 			cmp.setup({
 				snippet = {
 					expand = function(args)
-						luasnip.lsp_expand(args.body)
+						luasnip.lsp_expand(args.body) -- Ensure this works correctly
 					end,
-				},
-				completion = {
-					completeopt = "menu,menuone,noinsert",
 				},
 				mapping = cmp.mapping.preset.insert({
-					["<C-j>"] = cmp.mapping.select_next_item(),
-					["<C-k>"] = cmp.mapping.select_prev_item(),
-					["<C-b>"] = cmp.mapping.scroll_docs(-4),
-					["<C-f>"] = cmp.mapping.scroll_docs(4),
 					["<S-Enter>"] = cmp.mapping.confirm({ select = true }),
-					["<C-Space>"] = cmp.mapping.complete({}),
-					["<C-l>"] = function()
-						if luasnip.expand_or_locally_jumpable() then
+					["<Tab>"] = cmp.mapping(function(fallback)
+						if cmp.visible() then
+							cmp.select_next_item()
+						elseif luasnip.expand_or_locally_jumpable() then
 							luasnip.expand_or_jump()
+						else
+							fallback()
 						end
-					end,
-					["<C-h>"] = function()
-						if luasnip.locally_jumpable(-1) then
+					end, { "i", "s" }),
+					["<S-Tab>"] = cmp.mapping(function(fallback)
+						if cmp.visible() then
+							cmp.select_prev_item()
+						elseif luasnip.locally_jumpable(-1) then
 							luasnip.jump(-1)
+						else
+							fallback()
 						end
-					end,
+					end, { "i", "s" }),
 				}),
 				sources = {
 					{ name = "nvim_lsp" },
@@ -64,7 +63,7 @@ return {
 					{ name = "buffer" },
 					{ name = "path" },
 				},
-				filetypes = { "markdown" },
+				filetypes = { "markdown", "md", "norg", "org", "txt", "qmd", "rmd" },
 			})
 		end,
 	},

@@ -1,15 +1,4 @@
 return {
-	-- {
-	-- 	"nvim-neorg/neorg",
-	-- 	opts = {
-	-- 		load = {
-	-- 			["core.defaults"] = {}, -- Loads default behaviour
-	-- 			["core.concealer"] = {}, -- Adds pretty icons to your documents
-	-- 			["core.dirman"] = { -- Manages Neorg workspaces
-	-- 			},
-	-- 		},
-	-- 	},
-	-- },
 	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
@@ -20,15 +9,19 @@ return {
 				"diff",
 				"go",
 				"html",
+				"json",
 				"lua",
 				"luadoc",
 				"markdown",
-				-- "norg",
+				"norg",
+				"org",
 				"python",
 				"regex",
 				"sql",
+				"toml",
 				"vim",
 				"vimdoc",
+				"yaml",
 			},
 			auto_install = true,
 			highlight = {

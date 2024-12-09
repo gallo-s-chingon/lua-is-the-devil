@@ -36,7 +36,7 @@ return {
 		},
 
 		ui = {
-			enable = true,
+			enable = false,
 			update_debounce = 500,
 		},
 		completion = {
@@ -44,7 +44,7 @@ return {
 			min_chars = 3,
 		},
 
-		note_id_func = function(title)
+		--[[		note_id_func = function(title)
 			local suffix = ""
 			if title ~= nil then
 				suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
@@ -68,7 +68,7 @@ return {
 			end
 			return out
 		end,
-
+--]]
 		templates = {
 			folder = "$HOME/.config/templates",
 			date_format = "%Y-%m-%d",
