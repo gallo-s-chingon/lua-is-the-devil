@@ -1,50 +1,50 @@
 return {
-	"epwalsh/obsidian.nvim",
-	version = "*", -- recommended, use latest release instead of latest commit
-	lazy = true,
-	ft = "markdown",
-	dependencies = {
-		"nvim-lua/plenary.nvim",
-	},
-	opts = {
-		workspaces = {
-			{
-				name = "novel",
-				path = "$HOME/Documents/widclub",
-			},
-			{
-				name = "notes",
-				path = "$HOME/notes",
-				daily_notes = {
-					folder = "notes/2024",
-				},
-			},
-			{
-				name = "no-vault",
-				path = function()
-					return assert(vim.fs.dirname(vim.api.nvim_buf_get_name(0)))
-				end,
-				overrides = {
-					notes_subdir = vim.NIL,
-					new_notes_location = "current_dir",
-					templates = {
-						folder = vim.NIL,
-					},
-					disable_frontmatter = true,
-				},
-			},
-		},
+  "epwalsh/obsidian.nvim",
+  version = "*", -- recommended, use latest release instead of latest commit
+  lazy = true,
+  ft = "markdown",
+  dependencies = {
+    "nvim-lua/plenary.nvim",
+  },
+  opts = {
+    workspaces = {
+      {
+        name = "novel",
+        path = "$HOME/Documents/widclub",
+      },
+      {
+        name = "notes",
+        path = "$HOME/notes",
+        daily_notes = {
+          folder = "notes/2024",
+        },
+      },
+      {
+        name = "no-vault",
+        path = function()
+          return assert(vim.fs.dirname(vim.api.nvim_buf_get_name(0)))
+        end,
+        overrides = {
+          notes_subdir = vim.NIL,
+          new_notes_location = "current_dir",
+          templates = {
+            folder = vim.NIL,
+          },
+          disable_frontmatter = true,
+        },
+      },
+    },
 
-		ui = {
-			enable = false,
-			update_debounce = 500,
-		},
-		completion = {
-			nvim_cmp = true,
-			min_chars = 3,
-		},
+    ui = {
+      enable = false,
+      update_debounce = 500,
+    },
+    completion = {
+      nvim_cmp = true,
+      min_chars = 3,
+    },
 
-		--[[		note_id_func = function(title)
+    --[[		note_id_func = function(title)
 			local suffix = ""
 			if title ~= nil then
 				suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
@@ -69,11 +69,11 @@ return {
 			return out
 		end,
 --]]
-		templates = {
-			folder = "$HOME/.config/templates",
-			date_format = "%Y-%m-%d",
-			time_format = "%H:%M",
-			tags = "",
-		},
-	},
+    templates = {
+      folder = "$HOME/.config/nvim/templates",
+      date_format = "%Y-%m-%d",
+      time_format = "%H:%M",
+      tags = "",
+    },
+  },
 }
