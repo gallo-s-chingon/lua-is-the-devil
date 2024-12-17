@@ -1,8 +1,7 @@
 return {
   "epwalsh/obsidian.nvim",
-  version = "*", -- recommended, use latest release instead of latest commit
-  lazy = true,
-  ft = "markdown",
+  version = "*",
+  event = "BufReadPre *.md",
   dependencies = {
     "nvim-lua/plenary.nvim",
   },
@@ -10,14 +9,11 @@ return {
     workspaces = {
       {
         name = "novel",
-        path = "$HOME/Documents/widclub",
+        path = vim.fn.expand("$HOME/Documents/widclub"),
       },
       {
         name = "notes",
-        path = "$HOME/notes",
-        daily_notes = {
-          folder = "notes/2024",
-        },
+        path = vim.fn.expand("$HOME/notes"),
       },
       {
         name = "no-vault",
@@ -34,7 +30,6 @@ return {
         },
       },
     },
-
     ui = {
       enable = false,
       update_debounce = 500,
@@ -44,31 +39,6 @@ return {
       min_chars = 3,
     },
 
-    --[[		note_id_func = function(title)
-			local suffix = ""
-			if title ~= nil then
-				suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
-			else
-				for _ = 1, 4 do
-					suffix = suffix .. string.char(math.random(65, 90))
-				end
-			end
-			return tostring(os.time()) .. "-" .. suffix
-		end,
-
-		note_frontmatter_func = function(note)
-			-- This is equivalent to the default frontmatter function.
-			local out = { id = note.id, title = note.title, tags = note.tags }
-			-- `note.metadata` contains any manually added fields in the frontmatter.
-			-- So here we just make sure those fields are kept in the frontmatter.
-			if note.metadata ~= nil and not vim.tbl_isempty(note.metadata) then
-				for k, v in pairs(note.metadata) do
-					out[k] = v
-				end
-			end
-			return out
-		end,
---]]
     templates = {
       folder = "$HOME/.config/nvim/templates",
       date_format = "%Y-%m-%d",
@@ -76,4 +46,7 @@ return {
       tags = "",
     },
   },
+  config = function(_, opts)
+    require("obsidian").setup(opts)
+  end,
 }
