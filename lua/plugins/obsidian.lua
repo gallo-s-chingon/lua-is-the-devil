@@ -1,7 +1,13 @@
 return {
   "epwalsh/obsidian.nvim",
+<<<<<<< HEAD
   version = "*",
   event = "BufReadPre *.md",
+=======
+  version = "*", -- recommended, use latest release instead of latest commit
+  lazy = false,
+  ft = "markdown",
+>>>>>>> 95fc874 (obsidian update)
   dependencies = {
     "nvim-lua/plenary.nvim",
   },
@@ -33,10 +39,6 @@ return {
     ui = {
       enable = false,
       update_debounce = 500,
-    },
-    completion = {
-      nvim_cmp = true,
-      min_chars = 3,
     },
 
     templates = {
