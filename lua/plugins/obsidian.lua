@@ -1,13 +1,12 @@
 return {
   "epwalsh/obsidian.nvim",
-<<<<<<< HEAD
-  version = "*",
-  event = "BufReadPre *.md",
-=======
   version = "*", -- recommended, use latest release instead of latest commit
-  lazy = false,
-  ft = "markdown",
->>>>>>> 95fc874 (obsidian update)
+  lazy = true,
+  event = {
+    "BufReadPre $DX/widclub/*.md",
+    "BufReadPre $DX/notes/*.md",
+    "BufNewFile $DX/notes/*.md",
+  },
   dependencies = {
     "nvim-lua/plenary.nvim",
   },
@@ -15,11 +14,11 @@ return {
     workspaces = {
       {
         name = "novel",
-        path = vim.fn.expand("$HOME/Documents/widclub"),
+        path = "$HOME/Documents/widclub",
       },
       {
         name = "notes",
-        path = vim.fn.expand("$HOME/notes"),
+        path = "$HOME/notes",
       },
       {
         name = "no-vault",
