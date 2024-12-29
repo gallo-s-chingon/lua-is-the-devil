@@ -1,11 +1,11 @@
 return {
   "epwalsh/obsidian.nvim",
-  version = "*", -- recommended, use latest release instead of latest commit
-  lazy = true,
+  version = "*",
   event = {
-    "BufReadPre $DX/widclub/*.md",
-    "BufReadPre $DX/notes/*.md",
-    "BufNewFile $DX/notes/*.md",
+    "BufReadPre " .. vim.fn.expand("$HOME/Documents/widows-club") .. "/**.md",
+    "BufReadPre " .. vim.fn.expand("$HOME/notes") .. "/**.md",
+    "BufNewFile " .. vim.fn.expand("$HOME/Documents/widows-club") .. "/**.md",
+    "BufNewFile " .. vim.fn.expand("$HOME/notes") .. "/**.md",
   },
   dependencies = {
     "nvim-lua/plenary.nvim",
@@ -14,40 +14,26 @@ return {
     workspaces = {
       {
         name = "novel",
-        path = "$HOME/Documents/widclub",
+        path = vim.fn.expand("$HOME/Documents/widows-club"),
       },
       {
         name = "notes",
-        path = "$HOME/notes",
-      },
-      {
-        name = "no-vault",
-        path = function()
-          return assert(vim.fs.dirname(vim.api.nvim_buf_get_name(0)))
-        end,
-        overrides = {
-          notes_subdir = vim.NIL,
-          new_notes_location = "current_dir",
-          templates = {
-            folder = vim.NIL,
-          },
-          disable_frontmatter = true,
-        },
+        path = vim.fn.expand("$HOME/notes"),
       },
     },
     ui = {
       enable = false,
-      update_debounce = 500,
     },
-
     templates = {
-      folder = "$HOME/.config/nvim/templates",
+      folder = vim.fn.expand("$HOME/.config/nvim/templates"),
       date_format = "%Y-%m-%d",
       time_format = "%H:%M",
       tags = "",
     },
   },
   config = function(_, opts)
-    require("obsidian").setup(opts)
+    vim.schedule(function()
+      require("obsidian").setup(opts)
+    end)
   end,
 }
