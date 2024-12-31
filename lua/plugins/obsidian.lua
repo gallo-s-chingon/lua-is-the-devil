@@ -18,7 +18,7 @@ return {
       },
       {
         name = "notes",
-        path = vim.fn.expand("$HOME/notes"),
+        path = vim.fn.expand("$HOME/Documents/notes"),
       },
     },
     ui = {
