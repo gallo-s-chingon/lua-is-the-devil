@@ -1,8 +1,8 @@
-{
+return {
   "Kurama622/llm.nvim",
-  dependencies = { 
-    "nvim-lua/plenary.nvim", 
-    "MunifTanjim/nui.nvim" 
+  dependencies = {
+    "nvim-lua/plenary.nvim",
+    "MunifTanjim/nui.nvim",
   },
   cmd = { "LLMSessionToggle", "LLMSelectedTextHandler" },
   config = function()
@@ -44,13 +44,13 @@
       display = {
         diff = {
           layout = "vertical",
-          opts = { 
-            "internal", 
-            "filler", 
-            "closeoff", 
-            "algorithm:patience", 
-            "followwrap", 
-            "linematch:120" 
+          opts = {
+            "internal",
+            "filler",
+            "closeoff",
+            "algorithm:patience",
+            "followwrap",
+            "linematch:120",
           },
           provider = "mini_diff",
         },
@@ -79,6 +79,12 @@
   keys = {
     { "<leader>ac", mode = "n", desc = "Toggle LLM Session", "<cmd>LLMSessionToggle<cr>" },
     { "<leader>ae", mode = "v", desc = "Explain Code", "<cmd>LLMSelectedTextHandler Please explain this code<cr>" },
-    { "<leader>ai", mode = "v", desc = "Improve Code", "<cmd>LLMSelectedTextHandler Please improve this code and explain the improvements<cr>" },
+    {
+      "<leader>ai",
+      mode = "v",
+      desc = "Improve Code",
+      "<cmd>LLMSelectedTextHandler Please improve this code and explain the improvements<cr>",
+    },
   },
 }
+

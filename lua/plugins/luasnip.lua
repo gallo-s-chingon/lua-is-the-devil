@@ -68,7 +68,7 @@ return {
     }
 
     -- Process YouTube Snippets
-    local snippets_file = vim.fn.expand("~/github/obsidian_main/300-youtube/youtube-video-list.txt")
+    local snippets_file = vim.fn.expand("~/.lua-is-the-devil/snippets/markdown.lua")
     for format_name, format_func in pairs(youtube_formats) do
       ls.add_snippets("all", process_youtube_snippets(snippets_file, format_func))
     end
