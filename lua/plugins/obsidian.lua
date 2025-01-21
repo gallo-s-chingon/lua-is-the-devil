@@ -24,12 +24,12 @@ return {
     ui = {
       enable = false,
     },
-    templates = {
-      folder = vim.fn.expand("$HOME/.config/nvim/templates"),
-      date_format = "%Y-%m-%d",
-      time_format = "%H:%M",
-      tags = "",
-    },
+    -- templates = {
+    --   folder = vim.fn.expand("$HOME/.config/nvim/templates"),
+    --   date_format = "%Y-%m-%d",
+    --   time_format = "%H:%M",
+    --   tags = "",
+    -- },
   },
   config = function(_, opts)
     vim.schedule(function()
@@ -37,3 +37,4 @@ return {
     end)
   end,
 }
+
