@@ -129,11 +129,11 @@ keys = {
     desc = "Toggle Terminal",
   },
   {
-    "<c-_>",
+    "<leader>cR",
     function()
-      Snacks.terminal()
+      Snacks.rename.rename_file()
     end,
-    desc = "which_key_ignore",
+    desc = "Rename File",
   },
   {
     "]]",

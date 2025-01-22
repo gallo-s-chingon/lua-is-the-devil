@@ -1,26 +1,19 @@
--- Filename: ~/github/dotfiles-latest/neovim/neobean/lua/plugins/mini-files.lua
--- ~/github/dotfiles-latest/neovim/neobean/lua/plugins/mini-files.lua
---
--- https://github.com/echasnovski/mini.files
---
--- I got this configuration from LazyVim.org
--- http://www.lazyvim.org/extras/editor/mini-files
-
--- I migrated my custom keymaps config and also the git status config to
--- separate files, as this file was growing too big
--- I also use this file as a centralized place for all the different keymaps,
--- including my custom ones
+-- I migrated my custom keymaps config and also the git status config to separate files, as this file was growing too big I also use this file as a centralized place for all the different keymaps, including my custom ones
 --
 -- Load external modules first
 local mini_files_km = require("config.modules.mini-files-km")
 local mini_files_git = require("config.modules.mini-files-git")
 
+require("mini.ai").setup()
+require("mini.surround").setup()
+require("mini.operators").setup()
+require("mini.pairs").setup()
+require("mini.bracketed").setup()
+
 return {
   "echasnovski/mini.files",
   opts = function(_, opts)
-    -- I didn't like the default mappings, so I modified them
-    -- Module mappings created only inside explorer.
-    -- Use `''` (empty string) to not create one.
+    -- I didn't like the default mappings, so I modified them. Module mappings created only inside explorer. Use `''` (empty string) to not create one.
     opts.mappings = vim.tbl_deep_extend("force", opts.mappings or {}, {
       close = "<esc>",
       -- Use this if you want to open several files
