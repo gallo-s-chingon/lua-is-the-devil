@@ -1,6 +1,4 @@
--- snippets/init.lua, Main module that brings everything together
 local M = {}
--- Helper function to create snippet structure
 local function create_snippet(prefix, body, description)
   return {
     prefix = prefix,
@@ -8,9 +6,7 @@ local function create_snippet(prefix, body, description)
     description = description,
   }
 end
--- Blog header templates module
 M.blog_templates = {
-  -- Basic header template
   basic_header = function()
     return create_snippet("head", {
       "---",
@@ -29,7 +25,6 @@ M.blog_templates = {
     }, "yaml front matter for blog post")
   end,
 
-  -- Header template with rating
   rated_header = function()
     return create_snippet("rating", {
       "---",
@@ -49,7 +44,6 @@ M.blog_templates = {
     }, "yaml front matter for blog post WITH a rating")
   end,
 }
--- Function to get all snippets
 function M.get_snippets()
   return {
     ["yaml blog header"] = M.blog_templates.basic_header(),
