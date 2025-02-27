@@ -65,8 +65,13 @@ return {
           enabled = true,
           max_items = 3,
           module = "blink.cmp.sources.buffer",
+<<<<<<< HEAD
           min_keyword_length = 4,
           score_offset = 15, -- the higher the number, the higher the priority
+=======
+          min_keyword_length = 2,
+          score_offset = 15,
+>>>>>>> 53dd0ca (cleaned up blink to clear errors)
         },
         snippets = {
           name = "snippets",
