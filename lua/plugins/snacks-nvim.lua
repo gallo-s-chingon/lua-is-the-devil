@@ -26,8 +26,7 @@ return {
       },
       -- -- Iterate through incomplete tasks in Snacks_picker
       {
-        -- -- You can confirm in your teminal lamw26wmal with:
-        -- -- rg "^\s*-\s\[ \]" test-markdown.md
+        -- -- You can confirm in your teminal lamw26wmal with: -- rg "^\s*-\s\[ \]" test-markdown.md
         "<leader>tt",
         function()
           Snacks.picker.grep({
@@ -94,9 +93,7 @@ return {
         end,
         desc = "Branches",
       },
-      -- Used in LazyVim to view the different keymaps, this by default is
-      -- configured as <leader>sk but I run it too often
-      -- Sometimes I need to see if a keymap is already taken or not
+      -- Used in LazyVim to view the different keymaps, this by default is configured as <leader>sk but I run it too often Sometimes I need to see if a keymap is already taken or not
       {
         "<M-k>",
         function()
@@ -115,8 +112,7 @@ return {
             format = "file",
             show_empty = true,
             supports_live = true,
-            -- In case you want to override the layout for this keymap
-            -- layout = "vscode",
+            -- In case you want to override the layout for this keymap layout = "vscode",
           })
         end,
         desc = "Find Files",
@@ -162,10 +158,7 @@ return {
       words = { enabled = true },
       -- https://github.com/folke/snacks.nvim/blob/main/docs/picker.md
       picker = {
-        -- My ~/github/dotfiles-latest/neovim/lazyvim/lua/config/keymaps.lua
-        -- file was always showing at the top, I needed a way to decrease its
-        -- score, in frecency you could use :FrecencyDelete to delete a file
-        -- from the database, here you can decrease it's score
+        -- My ~/github/dotfiles-latest/neovim/lazyvim/lua/config/keymaps.lua file was always showing at the top, I needed a way to decrease its score, in frecency you could use :FrecencyDelete to delete a file from the database, here you can decrease it's score
         transform = function(item)
           if not item.file then
             return item
@@ -174,34 +167,24 @@ return {
           if item.file:match("lazyvim/lua/config/keymaps%.lua") then
             item.score_add = (item.score_add or 0) - 30
           end
-          -- Boost the "neobean" keymaps file:
-          -- if item.file:match("neobean/lua/config/keymaps%.lua") then
-          --   item.score_add = (item.score_add or 0) + 100
-          -- end
+          -- Boost the "neobean" keymaps file: if item.file:match("neobean/lua/config/keymaps%.lua") then item.score_add = (item.score_add or 0) + 100 end
           return item
         end,
-        -- In case you want to make sure that the score manipulation above works
-        -- or if you want to check the score of each file
+        -- In case you want to make sure that the score manipulation above works or if you want to check the score of each file
         debug = {
           scores = true, -- show scores in the list
         },
-        -- I like the "ivy" layout, so I set it as the default globaly, you can
-        -- still override it in different keymaps
+        -- I like the "ivy" layout, so I set it as the default globaly, you can still override it in different keymaps
         layout = {
           preset = "ivy",
-          -- When reaching the bottom of the results in the picker, I don't want
-          -- it to cycle and go back to the top
+          -- When reaching the bottom of the results in the picker, I don't want it to cycle and go back to the top
           cycle = false,
         },
         layouts = {
-          -- I wanted to modify the ivy layout height and preview pane width,
-          -- this is the only way I was able to do it
-          -- NOTE: I don't think this is the right way as I'm declaring all the
-          -- other values below, if you know a better way, let me know
+          -- I wanted to modify the ivy layout height and preview pane width, this is the only way I was able to do it
+          -- NOTE: I don't think this is the right way as I'm declaring all the other values below, if you know a better way, let me know
           --
-          -- Then call this layout in the keymaps above
-          -- got example from here
-          -- https://github.com/folke/snacks.nvim/discussions/468
+          -- Then call this layout in the keymaps above got example from here https://github.com/folke/snacks.nvim/discussions/468
           ivy = {
             layout = {
               box = "vertical",
@@ -257,25 +240,19 @@ return {
           },
         },
       },
-      -- Folke pointed me to the snacks docs
-      -- https://github.com/LazyVim/LazyVim/discussions/4251#discussioncomment-11198069
-      -- Here's the lazygit snak docs
-      -- https://github.com/folke/snacks.nvim/blob/main/docs/lazygit.md
+      -- Folke pointed me to the snacks docs https://github.com/LazyVim/LazyVim/discussions/4251#discussioncomment-11198069
+      -- Here's the lazygit snak docs https://github.com/folke/snacks.nvim/blob/main/docs/lazygit.md
       lazygit = {
         theme = {
           selectedLineBgColor = { bg = "CursorLine" },
         },
-        -- With this I make lazygit to use the entire screen, because by default there's
-        -- "padding" added around the sides
-        -- I asked in LazyGit, folke didn't like it xD xD xD
+        -- With this I make lazygit to use the entire screen, because by default there's "padding" added around the sides I asked in LazyGit, folke didn't like it xD xD xD
         -- https://github.com/folke/snacks.nvim/issues/719
         win = {
-          -- -- The first option was to use the "dashboard" style, which uses a
-          -- -- 0 height and width, see the styles documentation
+          -- -- The first option was to use the "dashboard" style, which uses a -- 0 height and width, see the styles documentation
           -- -- https://github.com/folke/snacks.nvim/blob/main/docs/styles.md
           -- style = "dashboard",
-          -- But I can also explicitly set them, which also works, what the best
-          -- way is? Who knows, but it works
+          -- But I can also explicitly set them, which also works, what the best way is? Who knows, but it works
           width = 0,
           height = 0,
         },
@@ -284,8 +261,7 @@ return {
         enabled = true,
         top_down = false, -- place notifications from top to bottom
       },
-      -- This keeps the image on the top right corner, basically leaving your
-      -- text area free, suggestion found in reddit by user `Redox_ahmii`
+      -- This keeps the image on the top right corner, basically leaving your text area free, suggestion found in reddit by user `Redox_ahmii`
       -- https://www.reddit.com/r/neovim/comments/1irk9mg/comment/mdfvk8b/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
       styles = {
         snacks_image = {
@@ -296,30 +272,18 @@ return {
       image = {
         enabled = true,
         doc = {
-          -- Personally I set this to false, I don't want to render all the
-          -- images in the file, only when I hover over them
-          -- render the image inline in the buffer
-          -- if your env doesn't support unicode placeholders, this will be disabled
-          -- takes precedence over `opts.float` on supported terminals
+          -- Personally I set this to false, I don't want to render all the images in the file, only when I hover over them render the image inline in the buffer if your env doesn't support unicode placeholders, this will be disabled takes precedence over `opts.float` on supported terminals
           inline = vim.g.neovim_mode == "skitty" and true or false,
-          -- only_render_image_at_cursor = vim.g.neovim_mode == "skitty" and false or true,
-          -- render the image in a floating window
-          -- only used if `opts.inline` is disabled
+          -- only_render_image_at_cursor = vim.g.neovim_mode == "skitty" and false or true, render the image in a floating window only used if `opts.inline` is disabled
           float = true,
           -- Sets the size of the image
           -- max_width = 60,
           max_width = vim.g.neovim_mode == "skitty" and 20 or 60,
           max_height = vim.g.neovim_mode == "skitty" and 10 or 30,
           -- max_height = 30,
-          -- Apparently, all the images that you preview in neovim are converted
-          -- to .png and they're cached, original image remains the same, but
-          -- the preview you see is a png converted version of that image
+          -- Apparently, all the images that you preview in neovim are converted to .png and they're cached, original image remains the same, but the preview you see is a png converted version of that image
           --
-          -- Where are the cached images stored?
-          -- This path is found in the docs
-          -- :lua print(vim.fn.stdpath("cache") .. "/snacks/image")
-          -- For me returns `~/.cache/neobean/snacks/image`
-          -- Go 1 dir above and check `sudo du -sh ./* | sort -hr | head -n 5`
+          -- Where are the cached images stored? This path is found in the docs :lua print(vim.fn.stdpath("cache") .. "/snacks/image") For me returns `~/.cache/neobean/snacks/image` Go 1 dir above and check `sudo du -sh ./* | sort -hr | head -n 5`
         },
       },
       dashboard = {

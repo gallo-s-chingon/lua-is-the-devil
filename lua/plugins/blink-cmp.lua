@@ -32,7 +32,7 @@ return {
     -- NOTE: The new way to enable LuaSnip Merge custom sources with the existing ones from lazyvim
     -- NOTE: by default lazyvim already includes the lazydev source, so not adding it here again
     opts.sources = vim.tbl_deep_extend("force", opts.sources or {}, {
-      default = { "lsp", "path", "snippets", "buffer", "copilot", "dadbod", "emoji", "dictionary" },
+      default = { "lsp", "path", "snippets", "buffer", "dadbod", "emoji", "dictionary" },
       providers = {
         lsp = {
           name = "lsp",
@@ -40,8 +40,7 @@ return {
           module = "blink.cmp.sources.lsp",
           kind = "LSP",
           min_keyword_length = 2,
-          -- When linking markdown notes, I would get snippets and text in the suggestions, I want those to show only if there are no LSP suggestions
-          -- Enabled fallbacks as this seems to be working now Disabling fallbacks as my snippets wouldn't show up when editing lua files fallbacks = { "snippets", "buffer" },
+          -- When linking markdown notes, I would get snippets and text in the suggestions, I want those to show only if there are no LSP suggestions Enabled fallbacks as this seems to be working now Disabling fallbacks as my snippets wouldn't show up when editing lua files fallbacks = { "snippets", "buffer" },
           score_offset = 90, -- the higher the number, the higher the priority
         },
         path = {
@@ -65,13 +64,8 @@ return {
           enabled = true,
           max_items = 3,
           module = "blink.cmp.sources.buffer",
-<<<<<<< HEAD
-          min_keyword_length = 4,
-          score_offset = 15, -- the higher the number, the higher the priority
-=======
           min_keyword_length = 2,
           score_offset = 15,
->>>>>>> 53dd0ca (cleaned up blink to clear errors)
         },
         snippets = {
           name = "snippets",
@@ -139,11 +133,11 @@ return {
             -- -- The dictionary by default now uses fzf, make sure to have it -- installed -- https://github.com/Kaiser-Yang/blink-cmp-dictionary/issues/2
             --
             -- Do not specify a file, just the path, and in the path you need to have your .txt files
-            dictionary_directories = { vim.fn.expand("~/github/dotfiles-latest/dictionaries") },
+            dictionary_directories = { vim.fn.expand("~/.config/nvim/dictionary") },
             -- Notice I'm also adding the words I add to the spell dictionary
             dictionary_files = {
-              vim.fn.expand("~/github/dotfiles-latest/neovim/neobean/spell/en.utf-8.add"),
-              vim.fn.expand("~/github/dotfiles-latest/neovim/neobean/spell/es.utf-8.add"),
+              vim.fn.expand("~/.config/nvim/dictionary/words.txt"),
+              vim.fn.expand("~/.config/nvim/spell/en.utf-8.add"),
             },
             -- --  NOTE: To disable the definitions uncomment this section below
             --
@@ -211,8 +205,7 @@ return {
 
     opts.snippets = {
       preset = "luasnip",
-      -- This comes from the luasnip extra, if you don't add it, won't be able to
-      -- jump forward or backward in luasnip snippets
+      -- This comes from the luasnip extra, if you don't add it, won't be able to jump forward or backward in luasnip snippets
       -- https://www.lazyvim.org/extras/coding/luasnip#blinkcmp-optional
       expand = function(snippet)
         require("luasnip").lsp_expand(snippet)
@@ -228,10 +221,7 @@ return {
       end,
     }
 
-    -- The default preset used by lazyvim accepts completions with enter
-    -- I don't like using enter because if on markdown and typing
-    -- something, but you want to go to the line below, if you press enter,
-    -- the completion will be accepted
+    -- The default preset used by lazyvim accepts completions with enter I don't like using enter because if on markdown and typing something, but you want to go to the line below, if you press enter, the completion will be accepted
     -- https://cmp.saghen.dev/configuration/keymap.html#default
     opts.keymap = {
       preset = "default",
