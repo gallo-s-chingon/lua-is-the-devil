@@ -2,9 +2,9 @@ return {
   "epwalsh/obsidian.nvim",
   version = "*",
   event = {
-    "BufReadPre " .. vim.fn.expand("$HOME/Documents/widows-club") .. "/**.md",
+    "BufReadPre " .. vim.fn.expand("$HOME/notes/4-archive/widows-club") .. "/**.md",
     "BufReadPre " .. vim.fn.expand("$HOME/notes") .. "/**.md",
-    "BufNewFile " .. vim.fn.expand("$HOME/Documents/widows-club") .. "/**.md",
+    "BufNewFile " .. vim.fn.expand("$HOME/notes/4-archive/widows-club") .. "/**.md",
     "BufNewFile " .. vim.fn.expand("$HOME/notes") .. "/**.md",
   },
   dependencies = {
@@ -14,11 +14,11 @@ return {
     workspaces = {
       {
         name = "novel",
-        path = vim.fn.expand("$HOME/Documents/widows-club"),
+        path = vim.fn.expand("$HOME/notes/4-archive/widows-club"),
       },
       {
         name = "notes",
-        path = vim.fn.expand("$HOME/Documents/notes"),
+        path = vim.fn.expand("$HOME/notes"),
       },
     },
     ui = {
@@ -37,4 +37,3 @@ return {
     end)
   end,
 }
-
