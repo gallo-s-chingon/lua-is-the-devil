@@ -1,10 +1,7 @@
--- I use 3 plugins for this to work properly, but I only add a single file, which is the current one, and the other 2 plugins are listed under dependencies These dependencies will be automatically installed
-
 --[=====[
 
 https://github.com/tpope/vim-dadbod
-Vim plugin for interacting with databases
-Connections are specified with a single URL
+Vim plugin for interacting with databases Connections are specified with a single URL
 :DB mysql://root:pass@mysql.home.linkarzu.com:3310 SHOW DATABASES;
 
 https://github.com/kristijanhusak/vim-dadbod-ui
@@ -16,28 +13,19 @@ Then you will be asked for the name of the database that will show in the toogle
 
 https://github.com/kristijanhusak/vim-dadbod-completion
 
--------------------------------------------------------------------------------
-
 postgres
-- Lets say I'm on macOS and I want to connect to a postgres DB
-- I need to have psql installed, otherwise I won't be able to connect to the databases
+- Lets say I'm on macOS and I want to connect to a postgres DB - I need to have psql installed, otherwise I won't be able to connect to the databases
 - So install it with
   - `brew install postgresql@15`
   - Installation command found in `https://www.postgresql.org/download/macosx/`
 - Then you can check the version with 
   - `psql --version`
 
--------------------------------------------------------------------------------
-
-- I found the below file in this thread that helped me solve the autocompletion
-  issue I has having.
+- I found the below file in this thread that helped me solve the autocompletion issue I has having.
 - I had to add the cmp configg to `config/autocmds.lua`
   `https://github.com/kristijanhusak/vim-dadbod-completion/issues/53#issuecomment-1705335855`
-- This thread also pointed me to the plugin's creator dotfiles
-- The file below is the one that the dadbod-ui creator uses, so that's the config I'm using
+- This thread also pointed me to the plugin's creator dotfiles - The file below is the one that the dadbod-ui creator uses, so that's the config I'm using
   `https://github.com/kristijanhusak/neovim-config/blob/master/nvim/lua/partials/plugins/db.lua`
-
--------------------------------------------------------------------------------
 
 How to's
 - When dadbod is open press `?` to look at the help

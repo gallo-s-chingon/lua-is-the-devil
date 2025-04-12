@@ -1,10 +1,7 @@
 -- Filename: ~/il-diab/lua/plugins/render-markdown.lua
 -- https://github.com/MeanderingProgrammer/markdown.nvim
 --
--- When I hover over markdown headings, this plugin's highlights disappear, so I need to
--- edit the default highlights. I tried adding this as an autocommand in options.lua
--- and markdown.lua, but the highlights were overridden. Loading it after config.lazy
--- in init.lua was the only solution.
+-- When I hover over markdown headings, this plugin's highlights disappear, so I need to edit the default highlights. I tried adding this as an autocommand in options.lua and markdown.lua, but the highlights were overridden. Loading it after config.lazy in init.lua was the only solution.
 
 return {
   {
@@ -114,22 +111,4 @@ return {
     },
   },
   -- Separate blink.cmp configuration (assuming it’s intended as a standalone plugin)
-  {
-    "saghen/blink.cmp",
-    event = "InsertEnter",
-    config = function()
-      require("blink.cmp").setup({
-        sources = {
-          default = { "lsp", "path", "snippets", "buffer", "markdown" },
-          providers = {
-            markdown = {
-              name = "RenderMarkdown",
-              module = "render-markdown.integ.blink",
-              fallbacks = { "lsp" },
-            },
-          },
-        },
-      })
-    end,
-  },
 }

@@ -21,6 +21,20 @@ return {
   dependencies = {
     "moyiz/blink-emoji.nvim",
     "Kaiser-Yang/blink-cmp-dictionary",
+    config = function()
+      require("blink.cmp").setup({
+        sources = {
+          default = { "lsp", "path", "snippets", "buffer", "markdown" },
+          providers = {
+            markdown = {
+              name = "RenderMarkdown",
+              module = "render-markdown.integ.blink",
+              fallbacks = { "lsp" },
+            },
+          },
+        },
+      })
+    end,
   },
   opts = function(_, opts)
     opts.enabled = function()
@@ -183,3 +197,4 @@ return {
     return opts
   end,
 }
+
